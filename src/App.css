@@ -36,3 +36,121 @@
     transform: rotate(360deg);
   }
 }
+
+
+.drag-area {
+  flex-grow: 1;
+  position: relative;
+  overflow: hidden;
+  background-color: #f0f0f0;
+}
+
+
+.dropped-page {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.app {
+  display: flex;
+  height: 100vh; /* Full page height */
+  margin: 0;
+}
+
+
+
+.add-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.add-button:hover {
+  background-color: #45a049;
+}
+
+.pages-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Makes this part grow to fill empty space */
+}
+
+.page-item {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 5px 0;
+  cursor: pointer;
+  text-align: center;
+}
+
+.page-item:hover {
+  background-color: #f0f0f0;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #2f3e46; /* Darker shade for sidebar */
+  color: #ffffff; /* White text */
+  padding: 20px;
+  height: 100vh; /* Ensure it stretches the entire viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.sidebar h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #66fcf1; /* Stylish blue-green for the header */
+}
+
+.sidebar button {
+  background-color: #45a29e; /* Match button with the header color */
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar button:hover {
+  background-color: #66fcf1; /* Brighter on hover */
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.sidebar li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #4b636e; /* Slightly lighter grey-blue background */
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sidebar li:hover {
+  background-color: #66fcf1;
+  color: #000000; /* Black text on hover for contrast */
+}
+
