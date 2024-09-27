@@ -25,7 +25,7 @@ function UpdatePageModal({ existingPage, onClose, onUpdate }) {
     if (title) {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/pages/update/${existingPage.id}`,
+          `http://localhost:5000/api/pages/update/${existingPage._id}`,
           {
             method: "PUT",
             headers: {

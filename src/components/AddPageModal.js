@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-//import * as FaIcons from "react-icons/fa"; // Importing FontAwesome icons
-import "./AddPageModal.css"; // Add styles for modal
+//import * as FaIcons from "react-icons/fa"; 
+import "./AddPageModal.css"; 
 
 function AddPageModal({ onClose, onSave }) {
   const [title, setTitle] = useState("");
@@ -41,12 +41,12 @@ function AddPageModal({ onClose, onSave }) {
         }
 
         const result = await response.json();
-        console.log(result.message); // Handle success message (e.g., show a notification)
-        onSave(result.page); // Update the parent component with the new page
-        onClose(); // Close modal after saving
+        console.log(result.message); 
+        onSave(result.page); 
+        onClose(); 
       } catch (error) {
         console.error("Error:", error);
-        setErrorMessage(error.message); // Set error message to display
+        setErrorMessage(error.message); 
       }
     }
   };
@@ -56,7 +56,7 @@ function AddPageModal({ onClose, onSave }) {
       <div className="modal-content">
         <h3>Add New Page</h3>
         {errorMessage && <p className="error-message">{errorMessage}</p>}{" "}
-        {/* Display error message */}
+      
         <form onSubmit={handleSubmit}>
           <div>
             <label>Title</label>
@@ -80,7 +80,7 @@ function AddPageModal({ onClose, onSave }) {
                 //const IconComponent = FaIcons[iconObj.name];
                 return (
                   <option key={iconObj.name} value={iconObj.name}>
-                    {iconObj.label} {/* Option Label */}
+                    {iconObj.label} 
                   </option>
                 );
               })}

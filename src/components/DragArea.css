@@ -5,24 +5,25 @@
 }
 
 .dropped-page {
-  position: absolute; /* Ensure it positions correctly within the drag area */
-  width: 100px; /* Set a width that accommodates the icon and title */
-  height: 100px; /* Set a height if necessary */
-  display: flex; /* Use flexbox for alignment */
-  flex-direction: column; /* Stack icon and title vertically */
-  align-items: center; /* Center items horizontally */
-  justify-content: center; /* Center items vertically */
-}
-
-.form-container-dd {
-  width: 60px; /* Adjust according to your icon size */
-  height: 60px; /* Adjust according to your icon size */
+  position: absolute; 
+  width: 100px; 
+  height: 100px; 
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
 }
 
+.form-container-dd {  
+  width: 60px; 
+  height: 60px;
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  border-radius: 4px;  
+  background-color: transparent; 
+  border: none;  
+}  
 
 .form-container.circle {
   border-radius: 50%;
@@ -33,15 +34,15 @@
 }
 
 .icon {
-  color: white; /* Icon color */
+  color: white; 
   font-size: 32px;
 }
 
 .page-title-dd {
-  display: block; /* Make sure it takes up space */
-  width: auto; /* Allow it to adjust to the content */
-  text-align: center; /* Center align the text */
-  margin-top: 5px; /* Add some space above the title */
-  color: #000; /* Set a color for the title text */
-  font-size: 14px; /* Adjust font size as needed */
+  display: block; 
+  width: auto; 
+  text-align: center; 
+  margin-top: 5px; 
+  color: #000; 
+  font-size: 14px; 
 }

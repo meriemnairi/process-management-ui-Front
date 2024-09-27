@@ -1,15 +1,17 @@
 import React, { useRef, useState } from "react";
-import * as FaIcons from "react-icons/fa"; // Import FontAwesome icons
-import UpdatePageModal from "./UpdatePageModal"; // Import the popup component
-import "./DragArea.css"; // Import the new CSS file
+import * as FaIcons from "react-icons/fa"; 
+import UpdatePageModal from "./UpdatePageModal"; 
+import "./DragArea.css"; 
+import axios from "axios"; 
 
 function DragArea({ onDrop, pages, onUpdatePage }) {
   const dragAreaRef = useRef(null);
   const [arrows, setArrows] = useState([]);
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPage, setStartPage] = useState(null);
-  const [selectedPage, setSelectedPage] = useState(null); // State for selected page
-  const [isPopupOpen, setIsPopupOpen] = useState(false); // State for popup visibility
+  const [selectedPage, setSelectedPage] = useState(null); 
+  const [isPopupOpen, setIsPopupOpen] = useState(false); 
+  const clickTimeoutRef = useRef(null); 
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -45,14 +47,44 @@ function DragArea({ onDrop, pages, onUpdatePage }) {
     setStartPage(null);
   };
 
-  const handleDoubleClick = (page) => {
-    setSelectedPage(page); // Set the selected page for the popup
-    setIsPopupOpen(true); // Open the popup
+  const handleClick = (page) => {
+    
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+
+    
+    clickTimeoutRef.current = setTimeout(() => {
+      setSelectedPage(page); 
+      setIsPopupOpen(true); 
+    }, 250); 
+  };
+
+  const handleDoubleClick = async (page) => {
+    
+    if (clickTimeoutRef.current) {
+      clearTimeout(clickTimeoutRef.current);
+    }
+
+    try {
+      
+      const response = await axios.get(
+        `http://localhost:5000/api/pages/${page._id}`
+      );
+ 
+      if (response.status === 200) {
+        window.open(page.link, "_blank");
+      
+        onUpdatePage(response.data); 
+      }
+    } catch (error) {
+      console.error("Error incrementing views or opening the page:", error);
+    }
   };
 
   const handleUpdatePage = (updatedPage) => {
-    onUpdatePage(updatedPage); // Call the update function passed as a prop
-    setIsPopupOpen(false); // Close the popup after update
+    onUpdatePage(updatedPage); 
+    setIsPopupOpen(false); 
   };
 
   const renderArrows = () => {
@@ -111,14 +143,15 @@ function DragArea({ onDrop, pages, onUpdatePage }) {
       </svg>
 
       {pages.map((page, index) => {
-        const IconComponent = FaIcons[page.icon] || null; // Dynamic icon import
+        const IconComponent = FaIcons[page.icon] || null; 
         return (
           <div
             key={index}
             className="dropped-page"
             style={{ left: `${page.x}px`, top: `${page.y}px` }}
             onMouseDown={() => handleMouseDown(page)}
-            onDoubleClick={() => handleDoubleClick(page)} // Handle double-click
+            onDoubleClick={() => handleDoubleClick(page)} 
+            onClick={() => handleClick(page)} 
           >
             <div
               className={`form-container-dd ${page.form.toLowerCase()}`}
@@ -130,19 +163,20 @@ function DragArea({ onDrop, pages, onUpdatePage }) {
                 <span>No icon</span>
               )}
             </div>
-            <span className="page-title-dd">{page.title}</span>
+            <span className="page-title-dd">
+              {page.title} {page.views}
+            </span>
           </div>
         );
       })}
 
-      {isPopupOpen &&
-        selectedPage && (
-          <UpdatePageModal
-            existingPage={selectedPage} 
-            onClose={() => setIsPopupOpen(false)} // Close the popup
-            onUpdate={handleUpdatePage} 
-          />
-        )}
+      {isPopupOpen && selectedPage && (
+        <UpdatePageModal
+          existingPage={selectedPage}
+          onClose={() => setIsPopupOpen(false)} 
+          onUpdate={handleUpdatePage}
+        />
+      )}
     </div>
   );
 }
