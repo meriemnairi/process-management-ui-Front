@@ -56,7 +56,6 @@ function AddPageModal({ onClose, onSave }) {
       <div className="modal-content">
         <h3>Add New Page</h3>
         {errorMessage && <p className="error-message">{errorMessage}</p>}{" "}
-      
         <form onSubmit={handleSubmit}>
           <div>
             <label>Title</label>
@@ -80,7 +79,7 @@ function AddPageModal({ onClose, onSave }) {
                 //const IconComponent = FaIcons[iconObj.name];
                 return (
                   <option key={iconObj.name} value={iconObj.name}>
-                    {iconObj.label} 
+                    {iconObj.label}
                   </option>
                 );
               })}
@@ -93,9 +92,19 @@ function AddPageModal({ onClose, onSave }) {
               type="color"
               value={color}
               onChange={(e) => setColor(e.target.value)}
+              style={{
+                backgroundColor: color, 
+                color: "#fff", 
+                borderColor: color, 
+                borderWidth: "2px",
+                borderStyle: "solid",
+                width: "400px", 
+                height: "30px", 
+                borderRadius: "4px", 
+                cursor: "pointer", 
+              }}
             />
           </div>
-
           <div>
             <label>Form</label>
             <select value={form} onChange={(e) => setForm(e.target.value)}>

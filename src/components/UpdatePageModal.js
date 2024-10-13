@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-// import * as FaIcons from "react-icons/fa"; // Importing FontAwesome icons
-import "./AddPageModal.css"; // Reuse styles from AddPageModal
+// import * as FaIcons from "react-icons/fa"; 
+import "./AddPageModal.css"; 
 
 function UpdatePageModal({ existingPage, onClose, onUpdate }) {
   const [title, setTitle] = useState(existingPage.title || "");
   const [icon, setIcon] = useState(existingPage.icon || "");
   const [color, setColor] = useState(existingPage.color || "");
   const [form, setForm] = useState(existingPage.form || "");
-  const [slug] = useState(existingPage.link || ""); // Disable this field
+  const [slug] = useState(existingPage.link || ""); 
   const [errorMessage, setErrorMessage] = useState("");
 
   const forms = ["Square", "Circle"];
@@ -40,17 +40,17 @@ function UpdatePageModal({ existingPage, onClose, onUpdate }) {
         }
 
         const result = await response.json();
-        console.log(result.message); // Handle success message (e.g., show a notification)
-        onUpdate(result.page); // Update the parent component with the updated page
-        onClose(); // Close modal after saving
+        console.log(result.message); 
+        onUpdate(result.page); 
+        onClose(); 
       } catch (error) {
         console.error("Error:", error);
-        setErrorMessage(error.message); // Set error message to display
+        setErrorMessage(error.message); 
       }
     }
   };
 
-  // Populate fields with existingPage data when it changes
+  
   useEffect(() => {
     setTitle(existingPage?.title || "");
     setIcon(existingPage.icon || "");
@@ -63,7 +63,6 @@ function UpdatePageModal({ existingPage, onClose, onUpdate }) {
       <div className="modal-content">
         <h3>Update Page</h3>
         {errorMessage && <p className="error-message">{errorMessage}</p>}{" "}
-        {/* Display error message */}
         <form onSubmit={handleSubmit}>
           <div>
             <label>Title</label>
@@ -85,7 +84,7 @@ function UpdatePageModal({ existingPage, onClose, onUpdate }) {
               <option value="">Select an icon</option>
               {availableIcons.map((iconObj) => (
                 <option key={iconObj.name} value={iconObj.name}>
-                  {iconObj.label} {/* Option Label */}
+                  {iconObj.label}
                 </option>
               ))}
             </select>
@@ -97,6 +96,17 @@ function UpdatePageModal({ existingPage, onClose, onUpdate }) {
               type="color"
               value={color}
               onChange={(e) => setColor(e.target.value)}
+              style={{
+                backgroundColor: color,
+                color: "#fff",
+                borderColor: color,
+                borderWidth: "2px",
+                borderStyle: "solid",
+                width: "400px",
+                height: "30px",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
             />
           </div>
 
@@ -114,12 +124,7 @@ function UpdatePageModal({ existingPage, onClose, onUpdate }) {
 
           <div>
             <label>Link (slug)</label>
-            <input
-              type="url"
-              value={slug}
-              disabled // Disable this field
-              readOnly // Optional: Makes it clear that it's read-only
-            />
+            <input type="url" value={slug} disabled readOnly />
           </div>
 
           <button type="submit">Update Page</button>

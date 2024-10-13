@@ -1,13 +1,11 @@
 
-
-/* List styling */
 .pages-list {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-/* Each page item */
+
 .page-item {
   display: flex;
   align-items: center;
@@ -16,7 +14,7 @@
   cursor: pointer;
 }
 
-/* Shape (form) containers */
+
 .form-container {
   width: 50px;
   height: 50px;
@@ -26,33 +24,33 @@
   margin-bottom: 10px;
 }
 
-/* Circle form */
+
 .form-container.circle {
   border-radius: 50%;
 }
 
-/* Square form */
+
 .form-container.square {
-  border-radius: 10%; /* Slightly rounded square */
+  border-radius: 10%; 
 }
 
-/* Hexagon form (You can customize this more based on your needs) */
+
 .form-container.hexagon {
   clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%);
 }
 
-/* Styling for the icons inside the forms */
+
 .icon {
   font-size: 24px;
-  color: white; /* Assuming the icon color is white */
+  color: white; 
 }
 
-/* Hidden page title (to match the image layout) */
+
 .page-title {
-  display: none; /* Hidden for icon-only layout */
+  display: none; 
 }
 
-/* Optional hover effect to reveal title */
+
 .page-item:hover .page-title {
   display: block;
   margin-left: 10px;

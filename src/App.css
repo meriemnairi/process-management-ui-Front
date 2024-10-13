@@ -58,7 +58,7 @@
 }
 .app {
   display: flex;
-  height: 100vh; /* Full page height */
+  height: 100vh; 
   margin: 0;
 }
 
@@ -82,7 +82,7 @@
 .pages-list {
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Makes this part grow to fill empty space */
+  flex-grow: 1; 
 }
 
 .page-item {
@@ -100,10 +100,10 @@
 
 .sidebar {
   width: 250px;
-  background-color: #2f3e46; /* Darker shade for sidebar */
-  color: #ffffff; /* White text */
+  background-color: #2f3e46; 
+  color: #ffffff; 
   padding: 20px;
-  height: 100vh; /* Ensure it stretches the entire viewport height */
+  height: 100vh; 
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -113,11 +113,11 @@
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #66fcf1; /* Stylish blue-green for the header */
+  color: #66fcf1; 
 }
 
 .sidebar button {
-  background-color: #45a29e; /* Match button with the header color */
+  background-color: #45a29e; 
   color: #ffffff;
   border: none;
   padding: 10px 20px;
@@ -130,7 +130,7 @@
 }
 
 .sidebar button:hover {
-  background-color: #66fcf1; /* Brighter on hover */
+  background-color: #66fcf1; 
 }
 
 .sidebar ul {
@@ -141,7 +141,7 @@
 .sidebar li {
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #4b636e; /* Slightly lighter grey-blue background */
+  background-color: #4b636e; 
   color: #ffffff;
   border-radius: 4px;
   font-size: 16px;
@@ -151,6 +151,6 @@
 
 .sidebar li:hover {
   background-color: #66fcf1;
-  color: #000000; /* Black text on hover for contrast */
+  color: #000000; 
 }
 

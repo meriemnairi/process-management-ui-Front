@@ -35,11 +35,11 @@ function App() {
   const handleDrop = (page, x, y) => {
     setDroppedPages((prevPages) => [
       ...prevPages,
-      { ...page, x, y }, // Store page with x and y coordinates
+      { ...page, x, y }, 
     ]);
   };
 
-  // New function to update the dropped page
+  
   const handleUpdatePage = (updatedPage) => {
     setDroppedPages((prevPages) =>
       prevPages.map((page) => (page.id === updatedPage.id ? updatedPage : page))
@@ -56,7 +56,7 @@ function App() {
       <DragArea
         onDrop={handleDrop}
         pages={droppedPages}
-        onUpdatePage={handleUpdatePage} // Pass the update handler
+        onUpdatePage={handleUpdatePage} 
       />
     </div>
   );

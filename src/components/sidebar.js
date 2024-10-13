@@ -17,8 +17,8 @@ function Sidebar({ availablePages, onDragStart, onAddPage }) {
       <ul className="pages-list">
         {availablePages.length > 0 ? (
           availablePages.map((page, index) => {
-            // Dynamically get the icon component from react-icons
-            const IconComponent = FaIcons[page.icon]; // page.icon is a string like "FaBeer"
+            
+            const IconComponent = FaIcons[page.icon]; 
 
             return (
               <li
@@ -31,11 +31,10 @@ function Sidebar({ availablePages, onDragStart, onAddPage }) {
                   className={`form-container ${page.form.toLowerCase()}`}
                   style={{ backgroundColor: page.color }}
                 >
-                  {/* Render the icon dynamically */}
                   {IconComponent ? (
                     <IconComponent className="icon" />
                   ) : (
-                    <span>No icon</span> // Fallback in case the icon is not found
+                    <span>No icon</span> 
                   )}
                 </div>
                 <span className="page-title">{page.title}</span>

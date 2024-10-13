@@ -5,13 +5,15 @@
 }
 
 .dropped-page {
-  position: absolute; 
-  width: 100px; 
-  height: 100px; 
+   position: absolute; 
+  width: auto; 
+  height: auto; 
   display: flex;
   flex-direction: column; 
   align-items: center; 
   justify-content: center; 
+  background-color: transparent;
+  border: none; 
 }
 
 .form-container-dd {  
@@ -21,9 +23,10 @@
   align-items: center;  
   justify-content: center;  
   border-radius: 4px;  
-  background-color: transparent; 
+  background-color: transparent;
   border: none;  
 }  
+
 
 .form-container.circle {
   border-radius: 50%;
@@ -45,4 +48,5 @@
   margin-top: 5px; 
   color: #000; 
   font-size: 14px; 
+  background-color: transparent; 
 }

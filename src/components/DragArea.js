@@ -1,17 +1,18 @@
 import React, { useRef, useState } from "react";
-import * as FaIcons from "react-icons/fa"; 
-import UpdatePageModal from "./UpdatePageModal"; 
-import "./DragArea.css"; 
-import axios from "axios"; 
+import * as FaIcons from "react-icons/fa";
+import UpdatePageModal from "./UpdatePageModal";
+import ContextMenu from "./ContextMenu"; 
+import "./DragArea.css";
 
 function DragArea({ onDrop, pages, onUpdatePage }) {
   const dragAreaRef = useRef(null);
   const [arrows, setArrows] = useState([]);
   const [isDrawing, setIsDrawing] = useState(false);
   const [startPage, setStartPage] = useState(null);
-  const [selectedPage, setSelectedPage] = useState(null); 
-  const [isPopupOpen, setIsPopupOpen] = useState(false); 
-  const clickTimeoutRef = useRef(null); 
+  const [selectedPage, setSelectedPage] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [contextMenu, setContextMenu] = useState(null); 
+  //const clickTimeoutRef = useRef(null);
 
   const handleDrop = (e) => {
     e.preventDefault();
@@ -47,44 +48,27 @@ function DragArea({ onDrop, pages, onUpdatePage }) {
     setStartPage(null);
   };
 
-  const handleClick = (page) => {
-    
-    if (clickTimeoutRef.current) {
-      clearTimeout(clickTimeoutRef.current);
-    }
-
-    
-    clickTimeoutRef.current = setTimeout(() => {
-      setSelectedPage(page); 
-      setIsPopupOpen(true); 
-    }, 250); 
+  const handleRightClick = (e, page) => {
+    e.preventDefault(); 
+    setSelectedPage(page); 
+    setContextMenu({ x: e.clientX, y: e.clientY }); 
   };
 
-  const handleDoubleClick = async (page) => {
-    
-    if (clickTimeoutRef.current) {
-      clearTimeout(clickTimeoutRef.current);
-    }
-
-    try {
-      
-      const response = await axios.get(
-        `http://localhost:5000/api/pages/${page._id}`
-      );
- 
-      if (response.status === 200) {
-        window.open(page.link, "_blank");
-      
-        onUpdatePage(response.data); 
-      }
-    } catch (error) {
-      console.error("Error incrementing views or opening the page:", error);
+  const handleVisitPage = () => {
+    if (selectedPage) {
+      window.open(selectedPage.link, "_blank");
+      setContextMenu(null); 
     }
   };
 
-  const handleUpdatePage = (updatedPage) => {
-    onUpdatePage(updatedPage); 
-    setIsPopupOpen(false); 
+  const handleUpdatePage = () => {
+    setIsPopupOpen(true);
+    setContextMenu(null); 
+  };
+
+  const handleUpdatePageModal = (updatedPage) => {
+    onUpdatePage(updatedPage);
+    setIsPopupOpen(false);
   };
 
   const renderArrows = () => {
@@ -98,7 +82,7 @@ function DragArea({ onDrop, pages, onUpdatePage }) {
             x2={end.x}
             y2={end.y}
             stroke="black"
-            strokeWidth="2"
+            strokeWidth="1"
           />
           <polygon points={getArrowheadPoints(start, end)} fill="black" />
         </g>
@@ -107,7 +91,7 @@ function DragArea({ onDrop, pages, onUpdatePage }) {
   };
 
   const getArrowheadPoints = (start, end) => {
-    const headLength = 10;
+    const headLength = 20;
     const angle = Math.atan2(end.y - start.y, end.x - start.x);
 
     const p1 = {
@@ -143,15 +127,14 @@ function DragArea({ onDrop, pages, onUpdatePage }) {
       </svg>
 
       {pages.map((page, index) => {
-        const IconComponent = FaIcons[page.icon] || null; 
+        const IconComponent = FaIcons[page.icon] || null;
         return (
           <div
             key={index}
             className="dropped-page"
             style={{ left: `${page.x}px`, top: `${page.y}px` }}
             onMouseDown={() => handleMouseDown(page)}
-            onDoubleClick={() => handleDoubleClick(page)} 
-            onClick={() => handleClick(page)} 
+            onContextMenu={(e) => handleRightClick(e, page)} 
           >
             <div
               className={`form-container-dd ${page.form.toLowerCase()}`}
@@ -173,7 +156,16 @@ function DragArea({ onDrop, pages, onUpdatePage }) {
       {isPopupOpen && selectedPage && (
         <UpdatePageModal
           existingPage={selectedPage}
-          onClose={() => setIsPopupOpen(false)} 
+          onClose={() => setIsPopupOpen(false)}
+          onUpdate={handleUpdatePageModal}
+        />
+      )}
+
+      {contextMenu && (
+        <ContextMenu
+          x={contextMenu.x}
+          y={contextMenu.y}
+          onVisit={handleVisitPage}
           onUpdate={handleUpdatePage}
         />
       )}
