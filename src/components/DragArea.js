@@ -3,6 +3,8 @@ import * as FaIcons from "react-icons/fa";
 import UpdatePageModal from "./UpdatePageModal";
 import ContextMenu from "./ContextMenu"; 
 import "./DragArea.css";
+import axios from "axios";
+
 
 function DragArea({ onDrop, pages, onUpdatePage }) {
   const dragAreaRef = useRef(null);
@@ -54,12 +56,24 @@ function DragArea({ onDrop, pages, onUpdatePage }) {
     setContextMenu({ x: e.clientX, y: e.clientY }); 
   };
 
-  const handleVisitPage = () => {
-    if (selectedPage) {
-      window.open(selectedPage.link, "_blank");
-      setContextMenu(null); 
+const handleVisitPage = async () => {
+  if (selectedPage) {
+    try {
+      const response = await axios.get(
+        `http://localhost:5000/api/pages/${selectedPage._id}`
+      );
+
+      if (response.status === 200) {
+        window.open(selectedPage.link, "_blank");
+        setContextMenu(null); 
+        onUpdatePage(response.data); 
+      }
+    } catch (error) {
+      console.error("Error incrementing views or opening the page:", error);
     }
-  };
+  }
+};
+
 
   const handleUpdatePage = () => {
     setIsPopupOpen(true);

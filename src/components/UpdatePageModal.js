@@ -123,7 +123,7 @@ function UpdatePageModal({ existingPage, onClose, onUpdate }) {
           </div>
 
           <div>
-            <label>Link (slug)</label>
+            <label>Link</label>
             <input type="url" value={slug} disabled readOnly />
           </div>
 

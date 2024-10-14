@@ -91,3 +91,7 @@
   margin-bottom: 10px;
 }
 
+.error-text {
+  color: red;
+  font-size: 12px;
+}

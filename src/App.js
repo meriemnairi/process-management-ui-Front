@@ -7,10 +7,7 @@ function App() {
   const [availablePages, setAvailablePages] = useState([]);
   const [droppedPages, setDroppedPages] = useState([]);
 
-  const handleAddPage = (newPage) => {
-    setAvailablePages((prevPages) => [...prevPages, newPage]);
-  };
-
+  // Fetch available pages from API on load
   useEffect(() => {
     const fetchPages = async () => {
       try {
@@ -28,21 +25,35 @@ function App() {
     fetchPages();
   }, []);
 
+  // Add new page to available pages list
+  const handleAddPage = (newPage) => {
+    setAvailablePages((prevPages) => [...prevPages, newPage]);
+  };
+
+  // Handle dragging of pages from sidebar
   const handleDragStart = (e, page) => {
     e.dataTransfer.setData("page", JSON.stringify(page));
   };
 
+  // Handle dropping pages into the drag area
   const handleDrop = (page, x, y) => {
-    setDroppedPages((prevPages) => [
-      ...prevPages,
-      { ...page, x, y }, 
-    ]);
+    setDroppedPages((prevPages) => [...prevPages, { ...page, x, y }]);
   };
 
-  
+  // Handle updating pages (after incrementing views or editing)
   const handleUpdatePage = (updatedPage) => {
+    // Update the dropped pages state
     setDroppedPages((prevPages) =>
-      prevPages.map((page) => (page.id === updatedPage.id ? updatedPage : page))
+      prevPages.map((page) =>
+        page._id === updatedPage._id ? { ...page, ...updatedPage } : page
+      )
+    );
+
+    // Optionally, update the availablePages as well if needed
+    setAvailablePages((prevPages) =>
+      prevPages.map((page) =>
+        page._id === updatedPage._id ? { ...page, ...updatedPage } : page
+      )
     );
   };
 
@@ -56,7 +67,7 @@ function App() {
       <DragArea
         onDrop={handleDrop}
         pages={droppedPages}
-        onUpdatePage={handleUpdatePage} 
+        onUpdatePage={handleUpdatePage}
       />
     </div>
   );
